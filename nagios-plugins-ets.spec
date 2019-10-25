@@ -6,8 +6,12 @@ Summary:        test
 License:        test
 URL:            test
 %undefine _disable_source_fetch
+%global _python_bytecompile_extra 0
+%undefine __brp_python_bytecompile
 #Source0:        https://github.com/liberodark/nrpe-installer/archive/0.8.0-1.tar.gz
 Source0:        https://raw.githubusercontent.com/liberodark/nrpe-installer/master/src/check_mem.c
+Source1:        https://raw.githubusercontent.com/nihlaeth/Nagios_check_smartmon/master/check_smartmon.py
+Source2:        http://www.claudiokuenzler.com/nagios-plugins/check_zpools.sh
 # https://github.com/liberodark/nrpe-installer
 #BuildRequires:  
 #Requires:       
@@ -30,14 +34,24 @@ echo xyz
 
 
 %install
+ls -al $RPM_SOURCE_DIR
+ls -al $RPM_BUILD_DIR
 rm -rf $RPM_BUILD_ROOT
 install -d -m 0755 $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/
 install -m 0755 $RPM_BUILD_DIR/check_mem $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_mem
-#%make_install
+install -m 0755 $RPM_SOURCE_DIR/check_smartmon.py $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_smartmon.py
+install -m 0755 $RPM_SOURCE_DIR/check_zpools.sh $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_zpools.sh
+# %%make_install
+ls -al $RPM_BUILD_ROOT/usr/lib64/nagios/plugins
 
 
 %files
+%exclude /usr/lib64/nagios/plugins/*.pyc
+%exclude /usr/lib64/nagios/plugins/*.pyo
 /usr/lib64/nagios/plugins/check_mem
+/usr/lib64/nagios/plugins/check_smartmon.py
+/usr/lib64/nagios/plugins/check_zpools.sh
+
 
 #%doc
 
