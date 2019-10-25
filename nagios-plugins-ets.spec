@@ -1,5 +1,5 @@
 Name:           nagios-plugins-ets
-Version:        1.0
+Version:        1.1
 Release:        1%{?dist}
 Summary:        test
 
@@ -14,7 +14,7 @@ Source1:        https://raw.githubusercontent.com/nihlaeth/Nagios_check_smartmon
 Source2:        http://www.claudiokuenzler.com/nagios-plugins/check_zpools.sh
 # https://github.com/liberodark/nrpe-installer
 #BuildRequires:  
-#Requires:       
+Requires:       python-psutil, smartmontools
 
 %description
 
@@ -34,9 +34,11 @@ echo xyz
 
 
 %install
+
 ls -al $RPM_SOURCE_DIR
 ls -al $RPM_BUILD_DIR
 rm -rf $RPM_BUILD_ROOT
+#make install DESTDIR=%{buildroot}
 install -d -m 0755 $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/
 install -m 0755 $RPM_BUILD_DIR/check_mem $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_mem
 install -m 0755 $RPM_SOURCE_DIR/check_smartmon.py $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_smartmon.py
@@ -46,8 +48,10 @@ ls -al $RPM_BUILD_ROOT/usr/lib64/nagios/plugins
 
 
 %files
-%exclude /usr/lib64/nagios/plugins/*.pyc
-%exclude /usr/lib64/nagios/plugins/*.pyo
+#%exclude /usr/lib64/nagios/plugins/*.pyc
+#%exclude /usr/lib64/nagios/plugins/*.pyo
+/usr/lib64/nagios/plugins/*.pyc
+/usr/lib64/nagios/plugins/*.pyo
 /usr/lib64/nagios/plugins/check_mem
 /usr/lib64/nagios/plugins/check_smartmon.py
 /usr/lib64/nagios/plugins/check_zpools.sh
