@@ -1,5 +1,5 @@
 Name:           nagios-plugins-ets
-Version:        1.4
+Version:        1.5
 Release:        1%{?dist}
 Summary:        test
 
@@ -15,6 +15,7 @@ Source2:        http://www.claudiokuenzler.com/nagios-plugins/check_zpools.sh
 Source3:        https://raw.githubusercontent.com/duffycop/nagios_plugins/master/plugins/check_service
 Source4:        https://raw.githubusercontent.com/ucsd-ets/nagios-plugins-ets/master/check_smartmon2.py
 Source5:        https://raw.githubusercontent.com/ucsd-ets/nagios-plugins-ets/master/check_smartctl
+Source6:        https://raw.githubusercontent.com/thomas-krenn/check_ipmi_sensor_v3/v3.13/check_ipmi_sensor
 # https://github.com/liberodark/nrpe-installer
 #BuildRequires:  
 Requires:       python-psutil, smartmontools
@@ -49,6 +50,7 @@ install -m 0755 $RPM_SOURCE_DIR/check_smartmon2.py $RPM_BUILD_ROOT/usr/lib64/nag
 install -m 0755 $RPM_SOURCE_DIR/check_zpools.sh $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_zpools.sh
 install -m 0755 $RPM_SOURCE_DIR/check_service $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_service
 install -m 0755 $RPM_SOURCE_DIR/check_smartctl $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_smartctl
+install -m 0755 $RPM_SOURCE_DIR/check_ipmi_sensor $RPM_BUILD_ROOT/usr/lib64/nagios/plugins/check_ipmi_sensor
 # %%make_install
 ls -al $RPM_BUILD_ROOT/usr/lib64/nagios/plugins
 
@@ -64,6 +66,7 @@ ls -al $RPM_BUILD_ROOT/usr/lib64/nagios/plugins
 /usr/lib64/nagios/plugins/check_zpools.sh
 /usr/lib64/nagios/plugins/check_service
 /usr/lib64/nagios/plugins/check_smartctl
+/usr/lib64/nagios/plugins/check_ipmi_sensor
 
 
 #%doc
